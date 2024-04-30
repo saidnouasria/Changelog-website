@@ -23,7 +23,7 @@ export const createJWT = (user) => {
 }
 
 export const protect = (req, res, next) => {
-    console.log(req.headers.authorization);
+    //console.log(req.headers.authorization);
     const bearer = req.headers.authorization
 
     if (!bearer){
@@ -34,15 +34,17 @@ export const protect = (req, res, next) => {
 
     const [,token]=bearer.split(" ") 
     if (!token) {
+        
         res.status(401);
         res.json({ message: "invalid token" });
         return;
     }
 
     try{
+        
          const user = jwt.verify(token,process.env.JWT_SECRET)
-         req.user = user
-         next()
+         req.user = user;
+         next();
     } catch (e) {
         console.log(e)
         res.status(401);

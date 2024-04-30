@@ -26,9 +26,10 @@ model Product {
   id          String   @id @default(uuid())
   createdAT   DateTime @default(now())
   name        String   @unique
-  BelongsToId String
-  BelongsTo   User     @relation(fields: [BelongsToId], references: [id])
+  belongsToId String
+  belongsTo   User     @relation(fields: [belongsToId], references: [id])
   Update      Update[]
+  @@unique([id,belongsToId])
 }
 
 model Update {
