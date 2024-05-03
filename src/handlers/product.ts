@@ -44,7 +44,7 @@ export const updateProduct = async (req, res) => {
       id_belongsToId: {
         id: req.params.id,
         belongsToId: req.user.id,
-      },
+      }
     },
     data: {
       name: req.body.name,
