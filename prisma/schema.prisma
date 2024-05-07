@@ -35,7 +35,7 @@ model Product {
 model Update {
   id          String        @id @default(uuid())
   createdAT   DateTime      @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime @updatedAt
   title       String
   description String
   status      UPDATE_STATUS @default(IN_PROGRESS)

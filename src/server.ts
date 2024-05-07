@@ -13,13 +13,30 @@ app.use(express.urlencoded({extended : true}))
 app.get('/try',(req,res)=>{
     console.log("ninja turtles")
     res.status(200)
-    res.json({"message":"Abdou is a good roommate"})
+    res.json({"message":"very good"})
 
 })
 
+app.get('/',(req,res,next)=>{
+    setTimeout(() => {
+      next(new Error("hello"));
+    }, 1);
+})
 app.use('/api',protect ,router)
 
 app.post('/user',createNewUser)
 app.post('/signin',signin)
+
+
+app.use((err,req,res,next)=>{
+    if (err.type === 'auth'){
+        res.status(401).json({message:"unauthorized"})
+    } else if (err.type === 'input'){
+        res.status(400).json({message:"invalid input"})
+    } else {
+        res.status(500).json({message:"oops, it's our fault"})
+    }
+})
+
 
 export default app

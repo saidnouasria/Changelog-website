@@ -4,39 +4,35 @@ import prisma from "../db";
 
 //get all updates
 export const getupdates = async (req, res) => {
-  const product = await prisma.product.findUnique({
+  const products = await prisma.product.findMany({
     where: {
-      id: req.user.id,
+      belongsToId: req.user.id,
     },
     include: {
       Update: true,
     },
   });
-
-  res.json({ data: product.Update });
+  console.log(products)
+  res.json({ data: products.map(product=>[product.id,product.Update])});
 };
 
 //get one update
 export const getOneUpdate = async (req, res) => {
-   const product = await prisma.product.findFirst({
+   const update = await prisma.update.findUnique({
      where: {
        id: req.params.id,
-       belongsToId: req.user.id,
-     },
-     include:{
-        Update:true
+       
      }
    });
 
-  res.json({ data: product.Update });
+  res.json({ data: update });
 };
 
 export const createUpdate = async (req, res) => {
     
    const product = await prisma.product.findFirst({
      where: {
-       id: req.params.id,
-       belongsToId: req.user.id,
+       id: req.body.productId
      }
    });
   
@@ -72,7 +68,7 @@ export const updateUpdate = async (req, res) => {
   //     return res.json({message :"nope"})
   //    }
 
-  const updated = await prisma.product.update({
+  const updated = await prisma.update.update({
     where: {
       id:req.params.id
     },
