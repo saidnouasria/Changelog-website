@@ -48,25 +48,7 @@ export const createUpdate = async (req, res) => {
 };
 
 export const updateUpdate = async (req, res) => {
-  //  const products= await prisma.product.findMany({
-  //   where:{
-  //     belongsToId:req.user.id
-  //   },
-  //   include : {
-  //       Update:true
-  //   }
-  //  })
 
-  //    const updates = products.reduce((allUpdates,product)=>{
-  //     return[...allUpdates,...product.Update]
-  //    },[])
-
-
-  //    const match = updates.find((update) => update.id === req.params.id);
-     
-  //    if (!match){
-  //     return res.json({message :"nope"})
-  //    }
 
   const updated = await prisma.update.update({
     where: {
