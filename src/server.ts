@@ -10,18 +10,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended : true}))
 
-app.get('/try',(req,res)=>{
-    console.log("ninja turtles")
-    res.status(200)
-    res.json({"message":"very good"})
 
-})
-
-app.get('/',(req,res,next)=>{
-    setTimeout(() => {
-      next(new Error("hello"));
-    }, 1);
-})
 app.use('/api',protect ,router)
 
 app.post('/user',createNewUser)
